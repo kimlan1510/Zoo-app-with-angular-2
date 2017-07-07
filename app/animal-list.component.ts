@@ -10,6 +10,7 @@ import {Animal} from './animal.model';
       <option value="2">View All Animals Less Than 2 years Old</option>
       <option value="3">View All Animals More Than 2 years Old</option>
     </select>
+    <p></p>
       <ul>
         <li *ngFor="let currentAnimal of childAnimalList | age: filterByAge" [class]="endangeredSpecies(currentAnimal)"> <strong>Species:</strong> {{currentAnimal.species}}<br/> <strong>Name:</strong>  {{currentAnimal.name}} <br/>
         <strong>Age: </strong>{{currentAnimal.age}} <br/>
