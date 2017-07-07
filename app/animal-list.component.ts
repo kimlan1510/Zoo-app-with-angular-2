@@ -11,8 +11,17 @@ import {Animal} from './animal.model';
       <option value="3">View All Animals More Than 2 years Old</option>
     </select>
       <ul>
-        <li *ngFor="let currentAnimal of childAnimalList | age: filterByAge">Species: {{currentAnimal.species}} <br/> Name: {{currentAnimal.name}}
+        <li *ngFor="let currentAnimal of childAnimalList | age: filterByAge" [class]="endangeredSpecies(currentAnimal)"> <strong>Species:</strong> {{currentAnimal.species}}<br/> <strong>Name:</strong>  {{currentAnimal.name}} <br/>
+        <strong>Age: </strong>{{currentAnimal.age}} <br/>
+        <strong>Diet: </strong>{{currentAnimal.diet}} <br/>
+        <strong>Location: </strong> {{currentAnimal.location}} <br/>
+        <strong>Caretakers: </strong>{{currentAnimal.careTakers}} <br/>
+        <strong>Sex: </strong>{{currentAnimal.sex}} <br/>
+        <strong>Likes: </strong>{{currentAnimal.likes}} <br/>
+        <strong>Dislikes: </strong>{{currentAnimal.dislikes}} <br/>
+        <strong>Endangered Species? </strong>{{isEndangered}}<br/>
         <button (click)="editAnimalIsClicked(currentAnimal)">Edit!</button>
+        <hr/>
         </li>
       </ul>
     </div>
@@ -23,12 +32,23 @@ export class AnimalListComponent {
   @Input() childAnimalList: Animal[];
   @Output() clickSender = new EventEmitter();
   filterByAge: string = "All";
-
+  isEndangered: string;
   onChange(option){
     this.filterByAge = option;
   }
 
   editAnimalIsClicked(animalToEdit: Animal){
     this.clickSender.emit(animalToEdit);
+  }
+
+  endangeredSpecies(selectedAnimal){
+    if(selectedAnimal.endangered === true){
+      this.isEndangered = "Yes!";
+      return "bg-danger";
+    }
+    else{
+      this.isEndangered = "No. Not yet!";
+      return "bg-info";
+    }
   }
 }
